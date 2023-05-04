@@ -37,7 +37,8 @@ public class Evaluate {
 //	static final String WORKFLOW_LOCATION = "C:\\Users\\37663\\Desktop\\res\\DBACO-workflow\\DBACO-workflow-test\\src\\workflowSamples";
 	static final String WORKFLOW_LOCATION = "C:\\Users\\37663\\Downloads\\SyntheticWorkflows.tar\\SyntheticWorkflows";
 	static final String OUTPUT_LOCATION = "C:\\Users\\37663\\Desktop\\res\\DBACO-workflow\\DBACO-workflow-test\\log\\workflowSamples";
-	
+
+//	这个函数主要是用来测试deadline factor对于不同的workflow的影响
 	public static void main(String[] args)throws Exception{
 		int deadlineNum = (int)((DF_END-DF_START)/DF_INCR + 1);
 		
@@ -117,6 +118,7 @@ public class Evaluate {
 	
 	private static final java.text.DecimalFormat df = new java.text.DecimalFormat("0.000");
 	static {df.setRoundingMode(RoundingMode.HALF_UP); }
+//	主要是用来输出结果的
 	private static void printTo(BufferedWriter bw, double[][][] result, String resultName)throws Exception{
 		bw.write(resultName + "\r\n");
 		for(int di = 0;di<=(DF_END-DF_START)/DF_INCR;di++){

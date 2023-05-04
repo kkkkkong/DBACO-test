@@ -24,8 +24,12 @@ public class Workflow extends ArrayList<Task>{
 		super();
 		Task.resetInternalId();	
 		try {		//readDAX
+//			在文件中读取DAX数据
 			SAXParser sp = SAXParserFactory.newInstance().newSAXParser();
-			sp.parse(new InputSource(file), new MyDAXReader());
+			InputSource inputSource = new InputSource(file);
+			MyDAXReader myDAXReader = new MyDAXReader();
+			sp.parse(inputSource, myDAXReader);
+//			sp.parse(new InputSource(file),new MyDAXReader());
 			System.out.println("succeed to read DAX data from " + file);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,6 +40,7 @@ public class Workflow extends ArrayList<Task>{
 			this.add(t);
 		Task tentry = new Task(("entry"), 0);	
 		Task texit = new Task(("exit"), 0);
+//		添加统一的入口和出口
 		for(Task t: this){						//add edges to entry and exit
 			if(t.getInEdges().size()==0){
 				Edge e = new Edge(tentry, t);
@@ -269,6 +274,7 @@ public class Workflow extends ArrayList<Task>{
 	}
 
 	//--------------------------private classes--------------------------------------------
+//	解析DAX文件
 	private class MyDAXReader extends DefaultHandler{
 		private Stack<String> tags = new Stack<String>();
 		private String childId;

@@ -12,8 +12,8 @@ public class EvaluateRuntime {
 
 	private static final Scheduler[] METHODS = { new PSO(), new LACO(), new DBACO()}; //new PSO(),  new LACO(),
 	private static final int FILE_SIZE_MAX = 10;  //10
-	
 	public static void main(String[] args) throws Exception {
+//		设置输出文件夹
 		long[][] runtime = new long[FILE_SIZE_MAX][METHODS.length];
 		for(int fileSizeIndex = 0; fileSizeIndex<FILE_SIZE_MAX; fileSizeIndex++){
 			int size = 50 * (fileSizeIndex+1);
@@ -21,10 +21,11 @@ public class EvaluateRuntime {
 				for(int typeIndex = 0;typeIndex<WORKFLOWS.length;typeIndex++){
 					String workflow = WORKFLOWS[typeIndex];
 					for(int fileNumIndex = 0;fileNumIndex<FILE_INDEX_MAX;fileNumIndex++){
+//						设置输入文件
 						String file = Evaluate.WORKFLOW_LOCATION + "/" + workflow + 
 								"/" + workflow + ".n." + size + "." + fileNumIndex + ".dax";
-
-						Workflow wf = new Workflow(file);	
+//						设置deadline和budget
+						Workflow wf = new Workflow(file);
 						Benchmarks benSched = new Benchmarks(wf);
 						double deadline = benSched.getFastSchedule().calcMakespan() + (benSched.getCheapSchedule().calcMakespan()
 								- benSched.getFastSchedule().calcMakespan())* DEADLINE_FACTOR;
